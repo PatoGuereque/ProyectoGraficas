@@ -1,13 +1,14 @@
 const path = require('path');
 const fs = require('fs');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 // App directory
 const appDirectory = fs.realpathSync(process.cwd());
 
 // Gets absolute path of file within app directory
-const resolveAppPath = relativePath => path.resolve(appDirectory, relativePath);
-
+const resolveAppPath = (relativePath) =>
+  path.resolve(appDirectory, relativePath);
 
 module.exports = {
   // Environment mode
@@ -51,6 +52,13 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: resolveAppPath('public/index.html'),
+    }),
+
+    new CopyPlugin({
+      patterns: [{ from: 'public/static/', to: 'static' }],
+      options: {
+        concurrency: 100,
+      },
     }),
   ],
 };
