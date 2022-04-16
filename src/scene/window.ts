@@ -1,12 +1,13 @@
 import {
-  BoxGeometry,
-  Mesh,
-  MeshNormalMaterial,
+  Clock,
+  Color,
+  Fog,
   Scene,
+  sRGBEncoding,
   WebGLRenderer,
 } from 'three';
-import { pressStartFont } from '../fonts/index';
-import { TextGeometry } from '../imports';
+import { Phase } from '../game/phases/phase';
+import { MainMenuPhase } from '../game/phases/start-phase';
 import HudCamera from './hud-camera';
 import MainCamera from './main-camera';
 
@@ -14,8 +15,10 @@ class GameWindow {
   private renderer: WebGLRenderer;
   private mainCamera: MainCamera;
   private hudCamera: HudCamera;
-  private scene: Scene;
-  private hud: Scene;
+  private clock: Clock;
+  public scene: Scene;
+  public hud: Scene;
+  public phase: Phase;
 
   constructor() {
     this.mainCamera = new MainCamera();
@@ -23,9 +26,17 @@ class GameWindow {
     this.scene = new Scene();
     this.hud = new Scene();
     this.renderer = new WebGLRenderer({ antialias: true });
+    this.phase = new MainMenuPhase();
+    this.clock = new Clock();
 
     this.renderer.autoClear = false;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
+
+    this.scene.background = new Color().setHSL( 0.6, 0, 1 );
+    this.scene.fog = new Fog( this.scene.background, 1, 5000 );
+
+    this.renderer.outputEncoding = sRGBEncoding;
+    this.renderer.shadowMap.enabled = true;
 
     window.addEventListener('resize', () => {
       this.onWindowResize();
@@ -50,26 +61,11 @@ class GameWindow {
   }
 
   init() {
-    const cubegeometry = new BoxGeometry(0.2, 0.2, 0.2);
+    this.phase.init(this);
 
-    const textGeometry = new TextGeometry('Hello world!', {
-      font: pressStartFont,
-      size: 12,
-    });
-
-    const material = new MeshNormalMaterial();
-
-    const cubeMesh = new Mesh(cubegeometry, material);
-    const textMesh = new Mesh(textGeometry, material);
-    this.scene.add(cubeMesh);
-    this.hud.add(textMesh);
-
-    const animation = (time: number) => {
-      cubeMesh.rotation.x = time / 2000;
-      cubeMesh.rotation.y = time / 1000;
-
-      textMesh.position.y = - (window.innerHeight / 4);
-      textMesh.position.x = -95;
+    const animation = () => {
+      const delta = this.clock.getDelta();
+      this.phase.tick(delta, this);
       this.render();
     };
 
