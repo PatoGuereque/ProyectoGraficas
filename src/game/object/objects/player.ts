@@ -1,8 +1,10 @@
-import { GameObject } from '../gameobject';
-import { Group } from 'three';
-import GameWindow from '../../../scene/window';
-import { models, ModelType } from '../../../models/index';
-import { AnimatedComponent } from '../../component/components/animated';
+import { GameObject } from "../gameobject";
+import { Group } from "three";
+import GameWindow from "../../../scene/window";
+import { models, ModelType } from "../../../models/index";
+import { AnimatedComponent } from "../../component/components/animated";
+import { HoverComponent } from "../../component/components/hover";
+import { MouseFollowComponent } from "../../component/components/mouse-follow";
 
 export class Player extends GameObject {
   private model: Group;
@@ -25,13 +27,14 @@ export class Player extends GameObject {
       this.model,
       gltf.animations
     );
-    const mesh = gltf.scene.children[ 0 ];
+    const mesh = gltf.scene.children[0];
     mesh.castShadow = true;
     mesh.receiveShadow = true;
 
     animatedComponent.setAnimation(0);
     this.addComponent(animatedComponent);
-
+    this.addComponent(new HoverComponent(this.model, 0.05));
+    this.addComponent(new MouseFollowComponent(this.model));
     super.init(window);
   }
 }

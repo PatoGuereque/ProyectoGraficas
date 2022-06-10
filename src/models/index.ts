@@ -1,9 +1,7 @@
-import { Group } from 'three';
-import { GLTF, GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export enum ModelType {
-  Plane = 'plane/scene.gltf',
-  test = 'Soldier.glb',
+  Plane = "plane/scene.gltf",
 }
 
 const models: Map<ModelType, GLTF> = new Map();
