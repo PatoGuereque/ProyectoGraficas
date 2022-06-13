@@ -6,6 +6,9 @@ import { ComponentType } from "../types";
 
 let mousePos = new Vector3();
 const modelOffset = new Vector3(0, 0.05, 0);
+
+// prevent floor clipping
+const floor = new Vector3(-100, -32, -100);
 const movementSpeed = 0.05;
 
 // now handle the mousemove event
@@ -49,8 +52,9 @@ export class MouseFollowComponent extends Component {
       .getMainCamera()
       .position.clone()
       .add(dir.multiplyScalar(distance))
-      .sub(this.model.position)
-      .sub(modelOffset)
+      .max(floor) // prevent floor clipping
+      .sub(this.model.position) // get model position offset to gradually move it
+      .sub(modelOffset) // model offset from the center of the mouse
       .multiplyScalar(movementSpeed);
 
     this.model.position.add(pos);

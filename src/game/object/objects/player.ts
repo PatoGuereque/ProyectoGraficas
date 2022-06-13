@@ -3,7 +3,6 @@ import { Group } from "three";
 import GameWindow from "../../../scene/window";
 import { models, ModelType } from "../../../models/index";
 import { AnimatedComponent } from "../../component/components/animated";
-import { HoverComponent } from "../../component/components/hover";
 import { MouseFollowComponent } from "../../component/components/mouse-follow";
 
 export class Player extends GameObject {
@@ -17,8 +16,10 @@ export class Player extends GameObject {
     const gltf = models.get(ModelType.Plane);
 
     this.model = gltf.scene;
-    this.model.scale.set(0.4, 0.4, 0.4);
+    const scale = 1;
+    this.model.scale.set(scale, scale, scale);
     this.model.rotation.y = Math.PI / 2;
+    this.model.position.y = -30;
 
     this.model.rotation.z = 0.4;
     window.scene.add(this.model);
@@ -30,10 +31,12 @@ export class Player extends GameObject {
     const mesh = gltf.scene.children[0];
     mesh.castShadow = true;
     mesh.receiveShadow = true;
+    this.model.traverse((object: any) => {
+      if (object.isMesh) object.castShadow = true;
+    });
 
     animatedComponent.setAnimation(0);
     this.addComponent(animatedComponent);
-    this.addComponent(new HoverComponent(this.model, 0.05));
     this.addComponent(new MouseFollowComponent(this.model));
     super.init(window);
   }

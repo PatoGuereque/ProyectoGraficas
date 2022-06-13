@@ -1,4 +1,4 @@
-import { Clock, Color, Fog, Scene, sRGBEncoding, WebGLRenderer } from "three";
+import { Clock, Color, Fog, PCFSoftShadowMap, Scene, sRGBEncoding, WebGLRenderer } from "three";
 import { Phase } from "../game/phases/phase";
 import { MainMenuPhase } from "../game/phases/start-phase";
 import HudCamera from "./hud-camera";
