@@ -2,6 +2,8 @@ import { Material, Mesh, MeshNormalMaterial } from "three";
 import { pressStartFont } from "../../fonts/index";
 import { TextGeometry } from "../../imports";
 import GameWindow from "../../scene/window";
+import { GameObject } from "../object/gameobject";
+import { Bird } from "../object/objects/bird";
 import { OrbitControlsObject } from "../object/objects/orbit-controls";
 import { Player } from "../object/objects/player";
 import { SkyBox } from "../object/objects/sky";
@@ -14,6 +16,7 @@ export class MainMenuPhase extends Phase {
 
   private material: Material;
   private textMesh: Mesh;
+  private gameObjects: GameObject[] = [];
 
   public init(window: GameWindow): void {
     this.textGeometry = new TextGeometry("Hello world!", {
@@ -34,6 +37,14 @@ export class MainMenuPhase extends Phase {
 
     //this.controls = new OrbitControlsObject();
     //this.controls.init(window);
+
+    const bird = new Bird();
+
+    this.gameObjects.push(bird);
+
+    this.gameObjects.forEach((obj) => {
+      obj.init(window);
+    });
   }
 
   public tick(delta: number, gameWindow: GameWindow): void {
@@ -41,6 +52,10 @@ export class MainMenuPhase extends Phase {
     this.textMesh.position.x = -window.innerWidth / 2 + 15;
     this.player.update(delta, gameWindow);
     //this.controls.update(delta, gameWindow);
+
+    this.gameObjects.forEach((obj) => {
+      obj.update(delta, gameWindow);
+    });
   }
 
   public destroy(window: GameWindow) {

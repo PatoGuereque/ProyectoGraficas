@@ -58,7 +58,7 @@ export class SkyBox extends GameObject {
     groundMat.color.setHSL(0.25, 0.91, 0.78);
 
     const ground = new Mesh(groundGeo, groundMat);
-    ground.position.y = -33;
+    ground.position.y = -0;
     ground.rotation.x = -Math.PI / 2;
     ground.receiveShadow = true;
     gameWindow.scene.add(ground);
@@ -69,7 +69,7 @@ export class SkyBox extends GameObject {
     const uniforms = {
       topColor: { value: new Color(0x0077ff) },
       bottomColor: { value: new Color(0xffffff) },
-      offset: { value: 33 },
+      offset: { value: 0 },
       exponent: { value: 0.6 },
     };
     uniforms['topColor'].value.copy(hemiLight.color);

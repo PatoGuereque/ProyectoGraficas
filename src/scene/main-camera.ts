@@ -4,10 +4,25 @@ class MainCamera extends PerspectiveCamera {
   constructor() {
     super(30, window.innerWidth / window.innerHeight, 0.01, 10000);
 
-    this.position.set(7, -31, 13);
-    this.rotation.x = 0.02;
-    this.rotation.y = 0.37;
-    this.rotation.z = 0;
+    this.position.set(7, 1, 13);
+  }
+
+  public visibleHeightAtZDepth(depth: number) {
+    // compensate for cameras not positioned at z=0
+    const cameraOffset = this.position.z;
+    if (depth < cameraOffset) depth -= cameraOffset;
+    else depth += cameraOffset;
+
+    // vertical fov in radians
+    const vFOV = (this.fov * Math.PI) / 180;
+
+    // Math.abs to ensure the result is always positive
+    return 2 * Math.tan(vFOV / 2) * Math.abs(depth);
+  }
+
+  public visibleWidthAtZDepth(depth: number) {
+    const height = this.visibleHeightAtZDepth(depth);
+    return height * this.aspect;
   }
 }
 

@@ -2,6 +2,7 @@ import { GLTF, GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader.js";
 
 export enum ModelType {
   Plane = "plane/scene.gltf",
+  Bird = "bird/scene.gltf",
 }
 
 const models: Map<ModelType, GLTF> = new Map();

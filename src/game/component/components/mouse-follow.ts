@@ -8,7 +8,7 @@ let mousePos = new Vector3();
 const modelOffset = new Vector3(0, 0.05, 0);
 
 // prevent floor clipping
-const floor = new Vector3(-100, -32, -100);
+const floor = new Vector3(-100, 0.25, -100);
 const movementSpeed = 0.05;
 
 // now handle the mousemove event

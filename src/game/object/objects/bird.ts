@@ -3,9 +3,9 @@ import { Group } from "three";
 import GameWindow from "../../../scene/window";
 import { models, ModelType } from "../../../models/index";
 import { AnimatedComponent } from "../../component/components/animated";
-import { MouseFollowComponent } from "../../component/components/mouse-follow";
+import { MovingComponent } from "../../component/components/moving";
 
-export class Player extends GameObject {
+export class Bird extends GameObject {
   private model: Group;
 
   constructor() {
@@ -13,13 +13,14 @@ export class Player extends GameObject {
   }
 
   public init(window: GameWindow): void {
-    const gltf = models.get(ModelType.Plane);
+    const gltf = models.get(ModelType.Bird);
 
     this.model = gltf.scene;
-    const scale = 1;
+    const scale = 0.2;
     this.model.scale.set(scale, scale, scale);
-    this.model.rotation.y = Math.PI / 2;
-    this.model.position.y = 1;
+    this.model.rotation.y = -Math.PI / 2;
+    this.model.position.y = 2 + Math.random()*3;
+    this.model.position.x = 10;
 
     this.model.rotation.z = 0.4;
     window.scene.add(this.model);
@@ -37,7 +38,7 @@ export class Player extends GameObject {
 
     animatedComponent.setAnimation(0);
     this.addComponent(animatedComponent);
-    this.addComponent(new MouseFollowComponent(this.model));
+    this.addComponent(new MovingComponent(this.model, 4.5));
     super.init(window);
   }
 }
