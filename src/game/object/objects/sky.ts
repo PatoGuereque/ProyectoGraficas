@@ -30,7 +30,7 @@ export class SkyBox extends GameObject {
     const dirLight = new DirectionalLight(0xffffff, 1);
     dirLight.color.setHSL(0.1, 1, 0.95);
     dirLight.position.set(-1, 1.75, 1);
-    dirLight.position.multiplyScalar(0.5);
+    dirLight.position.multiplyScalar(4);
     gameWindow.scene.add(dirLight);
 
     dirLight.castShadow = true;
