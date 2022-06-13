@@ -26,7 +26,7 @@ export class HoverComponent extends Component {
     gameObject: GameObject
   ): void {
     this.time += delta;
-    this.model.position.y = this.posZ + Math.cos(this.time) * this.offset;
+    //this.model.position.y = this.posZ + Math.cos(this.time) * this.offset;
   }
 
   public destroy(window: GameWindow, gameObject: GameObject): void {}

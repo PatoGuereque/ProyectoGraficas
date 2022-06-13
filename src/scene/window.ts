@@ -1,15 +1,8 @@
-import {
-  Clock,
-  Color,
-  Fog,
-  Scene,
-  sRGBEncoding,
-  WebGLRenderer,
-} from 'three';
-import { Phase } from '../game/phases/phase';
-import { MainMenuPhase } from '../game/phases/start-phase';
-import HudCamera from './hud-camera';
-import MainCamera from './main-camera';
+import { Clock, Color, Fog, Scene, sRGBEncoding, WebGLRenderer } from "three";
+import { Phase } from "../game/phases/phase";
+import { MainMenuPhase } from "../game/phases/start-phase";
+import HudCamera from "./hud-camera";
+import MainCamera from "./main-camera";
 
 class GameWindow {
   private renderer: WebGLRenderer;
@@ -32,13 +25,13 @@ class GameWindow {
     this.renderer.autoClear = false;
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
-    this.scene.background = new Color().setHSL( 0.6, 0, 1 );
-    this.scene.fog = new Fog( this.scene.background, 1, 5000 );
+    this.scene.background = new Color().setHSL(0.6, 0, 1);
+    this.scene.fog = new Fog(this.scene.background, 1, 5000);
 
     this.renderer.outputEncoding = sRGBEncoding;
     this.renderer.shadowMap.enabled = true;
 
-    window.addEventListener('resize', () => {
+    window.addEventListener("resize", () => {
       this.onWindowResize();
     });
   }
@@ -74,6 +67,10 @@ class GameWindow {
 
   public getRenderer(): WebGLRenderer {
     return this.renderer;
+  }
+
+  public getMainCamera(): MainCamera {
+    return this.mainCamera;
   }
 }
 

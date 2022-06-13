@@ -1,13 +1,17 @@
-import { Group } from "three";
+import { Group, Vector3 } from "three";
 import GameWindow from "../../../scene/window";
 import { GameObject } from "../../object/gameobject";
 import { Component } from "../component";
 import { ComponentType } from "../types";
 
-let mousePos = { x: 0, y: 0 };
+let mousePos = new Vector3();
+const modelOffset = new Vector3(0, 0.05, 0);
+const movementSpeed = 0.05;
 
 // now handle the mousemove event
 const handleMouseMove = (event: MouseEvent) => {
+  event.preventDefault();
+
   // here we are converting the mouse position value received
   // to a normalized value varying between -1 and 1;
   // this is the formula for the horizontal axis:
@@ -15,24 +19,9 @@ const handleMouseMove = (event: MouseEvent) => {
 
   // for the vertical axis, we need to inverse the formula
   // because the 2D y-axis goes the opposite direction of the 3D y-axis
-
   const ty = 1 - (event.clientY / window.innerHeight) * 2;
-  mousePos = { x: tx, y: ty };
-};
 
-const normalize = (
-  v: number,
-  vmin: number,
-  vmax: number,
-  tmin: number,
-  tmax: number
-) => {
-  var nv = Math.max(Math.min(v, vmax), vmin);
-  var dv = vmax - vmin;
-  var pc = (nv - vmin) / dv;
-  var dt = tmax - tmin;
-  var tv = tmin + pc * dt;
-  return tv;
+  mousePos = new Vector3(tx, ty, 0.5);
 };
 
 export class MouseFollowComponent extends Component {
@@ -52,11 +41,19 @@ export class MouseFollowComponent extends Component {
     gameWindow: GameWindow,
     gameObject: GameObject
   ): void {
-    const targetX = normalize(mousePos.x, -1, 1, -1, 1);
-    const targetY = normalize(mousePos.y, 0, 1, -0.5, 0.5) - 0.1;
+    const vector = mousePos.clone();
+    vector.unproject(gameWindow.getMainCamera());
+    const dir = vector.sub(gameWindow.getMainCamera().position).normalize();
+    const distance = -gameWindow.getMainCamera().position.z / dir.z;
+    const pos = gameWindow
+      .getMainCamera()
+      .position.clone()
+      .add(dir.multiplyScalar(distance))
+      .sub(this.model.position)
+      .sub(modelOffset)
+      .multiplyScalar(movementSpeed);
 
-    this.model.position.x = targetX;
-    this.model.position.y += targetY - this.model.position.y;
+    this.model.position.add(pos);
   }
 
   public destroy(window: GameWindow, gameObject: GameObject): void {
