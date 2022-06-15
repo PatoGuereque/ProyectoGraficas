@@ -1,5 +1,8 @@
 import { PerspectiveCamera } from "three";
 
+/**
+ * Main camera is a perspective camera with a FOV of 30
+ */
 class MainCamera extends PerspectiveCamera {
   constructor() {
     super(30, window.innerWidth / window.innerHeight, 0.01, 10000);

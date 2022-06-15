@@ -2,9 +2,7 @@ import {
   BackSide,
   Color,
   DirectionalLight,
-  DirectionalLightHelper,
   HemisphereLight,
-  HemisphereLightHelper,
   Mesh,
   MeshLambertMaterial,
   PlaneGeometry,
@@ -15,6 +13,11 @@ import GameWindow from '../../../scene/window';
 import { shaders, ShaderType } from '../../../shaders/index';
 import { GameObject } from '../gameobject';
 
+/**
+ * This is our skybox for the game
+ * It initializes a directional light and a hemisphere light
+ * Also the sky is a shader
+ */
 export class SkyBox extends GameObject {
   public init(gameWindow: GameWindow): void {
     const hemiLight = new HemisphereLight(0xffffff, 0xffffff, 0.6);

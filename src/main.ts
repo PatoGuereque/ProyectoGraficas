@@ -1,6 +1,4 @@
-import * as THREE from 'three';
 import { fontLoader, modelLoader, shaderLoader } from './loaders/index';
-import { TextGeometry } from './imports';
 import GameWindow from './scene/window';
 
 const gameWindow: GameWindow = new GameWindow();

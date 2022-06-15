@@ -1,9 +1,12 @@
-import { Clock, Color, Fog, PCFSoftShadowMap, Scene, sRGBEncoding, WebGLRenderer } from "three";
+import { Clock, Color, Fog, Scene, sRGBEncoding, WebGLRenderer } from "three";
 import { Phase } from "../game/phases/phase";
 import { MainMenuPhase } from "../game/phases/start-phase";
 import HudCamera from "./hud-camera";
 import MainCamera from "./main-camera";
-
+/**
+ * The GameWindow that contains both of the cameras and the scenes
+ * We use two cameras, one for the HUD and another for the 3d space
+ */
 class GameWindow {
   private renderer: WebGLRenderer;
   private mainCamera: MainCamera;

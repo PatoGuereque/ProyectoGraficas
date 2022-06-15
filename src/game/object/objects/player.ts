@@ -5,6 +5,10 @@ import { models, ModelType } from "../../../models/index";
 import { AnimatedComponent } from "../../component/components/animated";
 import { MouseFollowComponent } from "../../component/components/mouse-follow";
 
+/**
+ * The main player object
+ * This will contain the logic to move our character
+ */
 export class Player extends GameObject {
   private model: Group;
 
@@ -28,6 +32,7 @@ export class Player extends GameObject {
       this.model,
       gltf.animations
     );
+
     const mesh = gltf.scene.children[0];
     mesh.castShadow = true;
     mesh.receiveShadow = true;
@@ -35,7 +40,9 @@ export class Player extends GameObject {
       if (object.isMesh) object.castShadow = true;
     });
 
+    // the animation 0 is the idling animation
     animatedComponent.setAnimation(0);
+    
     this.addComponent(animatedComponent);
     this.addComponent(new MouseFollowComponent(this.model));
     super.init(window);

@@ -11,7 +11,6 @@ import { Phase } from "./phase";
 
 export class MainMenuPhase extends Phase {
   private player: Player;
-  private controls: OrbitControlsObject;
   private textGeometry: TextGeometry;
 
   private material: Material;
@@ -19,7 +18,7 @@ export class MainMenuPhase extends Phase {
   private gameObjects: GameObject[] = [];
 
   public init(window: GameWindow): void {
-    this.textGeometry = new TextGeometry("Hello world!", {
+    this.textGeometry = new TextGeometry("Pato", {
       font: pressStartFont,
       size: 12,
     });
@@ -35,12 +34,14 @@ export class MainMenuPhase extends Phase {
     const sky = new SkyBox();
     sky.init(window);
 
-    //this.controls = new OrbitControlsObject();
-    //this.controls.init(window);
-
     const bird = new Bird();
 
     this.gameObjects.push(bird);
+
+    const debug = false;
+    if (debug) {
+      this.gameObjects.push(new OrbitControlsObject());
+    }
 
     this.gameObjects.forEach((obj) => {
       obj.init(window);
@@ -51,7 +52,6 @@ export class MainMenuPhase extends Phase {
     this.textMesh.position.y = -window.innerHeight / 2 + 15;
     this.textMesh.position.x = -window.innerWidth / 2 + 15;
     this.player.update(delta, gameWindow);
-    //this.controls.update(delta, gameWindow);
 
     this.gameObjects.forEach((obj) => {
       obj.update(delta, gameWindow);

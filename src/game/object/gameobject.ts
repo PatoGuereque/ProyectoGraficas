@@ -3,6 +3,10 @@ import GameWindow from '../../scene/window';
 import { Component } from '../component/component';
 import { ComponentType } from '../component/types';
 
+/**
+ * Defines an object that lives in the scene
+ * Can have multiple components, such as RigidBody, Animated, etc
+ */
 export abstract class GameObject {
   private components: Map<ComponentType, Component> = new Map();
   protected mesh: Mesh;

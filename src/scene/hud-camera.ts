@@ -1,5 +1,9 @@
-import { OrthographicCamera } from 'three';
+import { OrthographicCamera } from "three";
 
+/**
+ * HUD Camera is an orthographic camera used to render
+ * hud elements such as text and menus
+ */
 class HudCamera extends OrthographicCamera {
   constructor() {
     super(

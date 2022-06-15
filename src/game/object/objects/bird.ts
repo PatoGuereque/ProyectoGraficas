@@ -5,6 +5,10 @@ import { models, ModelType } from "../../../models/index";
 import { AnimatedComponent } from "../../component/components/animated";
 import { MovingComponent } from "../../component/components/moving";
 
+/**
+ * Our bird that randomly flies on the screen,
+ * has a random y position on every pass
+ */
 export class Bird extends GameObject {
   private model: Group;
 

@@ -3,6 +3,11 @@ import { loadShaders } from '../shaders/index';
 
 const loader = new FileLoader();
 
-const loadAllShaders = () => loadShaders(loader);
+/**
+ * Wrapper to load all shaders
+ * 
+ * @returns {Promise<void[]>} the promises of the shaders
+ */
+const loadAllShaders = (): Promise<void[]> => loadShaders(loader);
 
 export { loadAllShaders };

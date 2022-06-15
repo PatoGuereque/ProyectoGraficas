@@ -2,6 +2,10 @@ import { GameObject } from "../gameobject";
 import GameWindow from "../../../scene/window";
 import { OrbitControls } from "../../../imports";
 
+/**
+ * Orbit controls used for debugging
+ * Enables an interactive scene to freely move around
+ */
 export class OrbitControlsObject extends GameObject {
   private controls: OrbitControls;
 

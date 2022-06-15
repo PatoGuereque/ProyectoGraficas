@@ -4,6 +4,11 @@ import { GameObject } from "../../object/gameobject";
 import { Component } from "../component";
 import { ComponentType } from "../types";
 
+/**
+ * Defines a constant movement on the x-axis
+ * Also randomizes y-position
+ * TODO: This should be split into two different components
+ */
 export class MovingComponent extends Component {
   private model: Group;
   private speed: number;

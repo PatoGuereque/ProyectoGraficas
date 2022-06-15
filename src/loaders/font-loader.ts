@@ -3,6 +3,11 @@ import { FontLoader } from '../imports';
 
 const fontLoader = new FontLoader();
 
-const loadAllFonts = () => loadFonts(fontLoader);
+/**
+ * Wrapper to load all fonts
+ * 
+ * @returns {Promise<void[]>} the promises of the models
+ */
+const loadAllFonts = (): Promise<void[]> => loadFonts(fontLoader);
 
 export { loadAllFonts };

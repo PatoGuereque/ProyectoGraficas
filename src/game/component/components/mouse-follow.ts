@@ -4,6 +4,7 @@ import { GameObject } from "../../object/gameobject";
 import { Component } from "../component";
 import { ComponentType } from "../types";
 
+// stores the current transformed mouse x and y position
 let mousePos = new Vector3();
 const modelOffset = new Vector3(0, 0.05, 0);
 
@@ -27,6 +28,9 @@ const handleMouseMove = (event: MouseEvent) => {
   mousePos = new Vector3(tx, ty, 0.5);
 };
 
+/**
+ * Makes the current object follow the mouse cursor
+ */
 export class MouseFollowComponent extends Component {
   private model: Group;
 
@@ -40,9 +44,9 @@ export class MouseFollowComponent extends Component {
   }
 
   public update(
-    delta: number,
+    _delta: number,
     gameWindow: GameWindow,
-    gameObject: GameObject
+    _gameObject: GameObject
   ): void {
     const vector = mousePos.clone();
     vector.unproject(gameWindow.getMainCamera());
@@ -60,7 +64,7 @@ export class MouseFollowComponent extends Component {
     this.model.position.add(pos);
   }
 
-  public destroy(window: GameWindow, gameObject: GameObject): void {
+  public destroy(_window: GameWindow, _gameObject: GameObject): void {
     document.removeEventListener("mousemove", handleMouseMove);
   }
 
