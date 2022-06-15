@@ -1,6 +1,6 @@
 # Proyecto para Gráficas Computacionales
 
-The original idea was creating a small minigame for the computer graphics course. I started building a complete ECS (entity-component-system) but had a lot of other projects to do and didn't have the time to work on the original idea (also shaders are pretty hard and didn't have time to fully research and try to implement volumetric clouds with raymatching).
+The original idea was creating a small minigame for the computer graphics course. I started building a complete ECS (entity-component-system) but had a lot of other projects to do and didn't have the time to work on the original idea (also shaders are pretty hard and didn't have time to fully research and try to implement volumetric clouds with ray marching).
 
 The project is written completely in TypeScript and uses ThreeJS.
 
