@@ -10,6 +10,7 @@ const models: Map<ModelType, GLTF> = new Map();
 const loadModels = (loader: GLTFLoader) => {
   return Promise.all(
     Object.values(ModelType).map(async (url) => {
+      document.getElementById("loader").innerText = `Loading ${url}...`;
       const model = await loader.loadAsync(`static/models/${url}`);
       models.set(url, model);
     })

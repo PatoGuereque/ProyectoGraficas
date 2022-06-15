@@ -10,6 +10,7 @@ fontLoader
   .then(modelLoader.loadAllModels)
   .then(shaderLoader.loadAllShaders)
   .then(() => {
+    document.getElementById("loader").remove();
     gameWindow.init();
   });
 
